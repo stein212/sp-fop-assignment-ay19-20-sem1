@@ -1,0 +1,8 @@
+{
+  "name": "cli",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "stein121",
+  "license": "MIT",
+  "private": true
+}
