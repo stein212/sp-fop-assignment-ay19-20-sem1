@@ -3,10 +3,13 @@ const Quiz = require('./models/quiz')
 const MCQ = require('./models/mcq')
 const { rl, prompt } = require('./utils/input')
 
+let quizzes = []
+let name = ''
+
+// Load in the json data file and parse it
 let mcqsJson = JSON.parse(fs.readFileSync('data/mcqs.json'))
 
-let quizzes = []
-
+// Create the MCQ objects and add to Quiz objects
 for (let categoryJson of mcqsJson) {
     let mcqs = []
     for (let mcqJson of categoryJson.mcqs) {
@@ -18,8 +21,6 @@ for (let categoryJson of mcqsJson) {
 
     quizzes.push(quiz)
 }
-
-let name = ''
 
 function promptName() {
     console.log()
@@ -37,6 +38,7 @@ function promptSelectCategory() {
     console.log(
         `Hi ${name}, please choose the quiz category you would like to attempt:`
     )
+    // Show list of quiz options
     for (let i = 0; i < quizzes.length; i++) {
         let quiz = quizzes[i]
         console.log(`(${i + 1}) ${quiz.category}`)
@@ -44,8 +46,11 @@ function promptSelectCategory() {
 
     console.log(`(0) Quit`)
 
+    // Prompt user for selection
     rl.question(prompt, function onSelectedCategoryInput(input) {
+        // Parse the input into an integer
         let option = parseInt(input)
+        // Check if the integer is actually an integer and within the allowed range
         if (isNaN(option) || option < 0 || option > quizzes.length) {
             promptSelectCategory()
             return
@@ -53,6 +58,7 @@ function promptSelectCategory() {
 
         if (option === 0) process.exit()
 
+        // Start the quiz
         quizzes[option - 1].startQuiz().then(promptSelectCategory)
     })
 }

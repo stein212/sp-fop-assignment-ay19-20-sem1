@@ -9,6 +9,7 @@ module.exports = class Quiz {
 
     startQuiz() {
         return new Promise(resolve => {
+            // Set the current question index to be the first
             this.questionIndex = 0
             this.askCurrentQuestion()
 
@@ -18,30 +19,39 @@ module.exports = class Quiz {
 
     askCurrentQuestion() {
         console.log()
+        // Get the current mcq to be asked
         let currentMcq = this.mcqs[this.questionIndex]
 
+        // Print out the question
         console.log(`Question ${this.questionIndex + 1}:`)
         console.log(currentMcq.question)
 
+        // Shuffle the choices
         shuffle(currentMcq.choices)
 
+        // Print out the choices
         for (let i = 0; i < currentMcq.choices.length; i++) {
             let choice = currentMcq.choices[i]
             console.log(`(${i + 1}) ${choice.text}`)
         }
 
+        // Show allowed commands for the current question
+
+        // If first question, only allow them to move forward
         if (this.questionIndex <= 0) {
             console.log(
                 `<enter 1 to ${
                     currentMcq.choices.length
                 } for answer, N for next question>`
             )
+            // If last question, only allow them to move backward
         } else if (this.questionIndex >= this.mcqs.length) {
             console.log(
                 `<enter 1 to ${
                     currentMcq.choices.length
                 } for answer, P for previous question>`
             )
+            // Else it is in the middle, allow them to move forward and back
         } else {
             console.log(
                 `<enter 1 to ${
@@ -50,36 +60,45 @@ module.exports = class Quiz {
             )
         }
 
+        // Prompt user for a command
         rl.question(prompt, this.onQuestionInput.bind(this))
     }
 
     onQuestionInput(input) {
         input = input.toLowerCase()
+        // If user wants to go backward
         if (input === 'p') {
+            // Check if user is allowed to go back
             if (this.questionIndex <= 0) {
                 console.log('Error. You are attempting the first question.')
                 rl.question(prompt, this.onQuestionInput.bind(this))
                 return
             }
 
+            // Change current question index to previous question then ask that question
             this.questionIndex -= 1
             this.askCurrentQuestion()
             return
+            // If user wants to go forward
         } else if (input === 'n') {
+            // Check if user is allowed to go forward
             if (this.questionIndex >= this.mcqs.length - 1) {
                 console.log('Error. You are attempting the last question.')
                 rl.question(prompt, this.onQuestionInput.bind(this))
                 return
             }
 
+            // Change current question index to next question then ask that question
             this.questionIndex += 1
             this.askCurrentQuestion()
             return
         }
 
+        // Parse input
         let option = parseInt(input)
         let currentMcq = this.mcqs[this.questionIndex]
 
+        // check if input is valid
         if (
             isNaN(option) ||
             (option < 1 || option > currentMcq.choices.length)
@@ -89,12 +108,13 @@ module.exports = class Quiz {
             return
         }
 
-        // by now should all be valid options
+        // By now should all be valid options
         let selectedId = currentMcq.choices[option - 1].id
         currentMcq.setSelectedChoices([selectedId])
 
         this.questionIndex++
 
+        // If user answered the last question, prompt user if he wants to submit
         if (this.questionIndex >= this.mcqs.length) {
             this.beforeSubmitQuiz()
             return
@@ -103,6 +123,7 @@ module.exports = class Quiz {
         this.askCurrentQuestion()
     }
 
+    // Show user's current answers
     beforeSubmitQuiz() {
         console.log()
         console.log('Here are you answers:')
@@ -113,6 +134,7 @@ module.exports = class Quiz {
             console.log()
             console.log(`Question ${i + 1}: ${mcq.question}`)
 
+            // Get the user's selected choice(s)
             let selectedChoices = ''
             for (let j = 0; j < mcq.choices.length; j++) {
                 let choice = mcq.choices[j]
@@ -121,8 +143,10 @@ module.exports = class Quiz {
                 }
             }
 
+            // if no selected choice
             if (selectedChoices === '') {
                 console.log('Not attempted')
+                // If have selected choice(s)
             } else {
                 console.log(`Answer: ${selectedChoices}`)
             }
@@ -138,6 +162,7 @@ module.exports = class Quiz {
         rl.question(prompt, this.onSubmitQuizInput.bind(this))
     }
 
+    // Check if user wants to submit quiz or return to a particular question
     onSubmitQuizInput(input) {
         let option = parseInt(input)
         if (isNaN(option) || option < 0 || option > this.mcqs.length) {
@@ -156,6 +181,7 @@ module.exports = class Quiz {
         this.submitQuiz()
     }
 
+    // Calculate the results and show it to user
     submitQuiz() {
         let totalCorrect = 0
 
@@ -180,6 +206,7 @@ module.exports = class Quiz {
             }`
         )
 
+        // Call promise's resolve to end the quiz
         this.onEndQuiz()
     }
 }

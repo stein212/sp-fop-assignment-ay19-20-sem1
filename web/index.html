@@ -195,29 +195,41 @@
             const app = new Vue({
                 el: '#app',
                 data: {
+                    // Use currentView to control which view to show
                     currentView: 'namePrompt',
+                    // determines if modal for submitting quiz will be shown
                     isSubmitConfirmationActive: false,
 
                     name: '',
+                    // stores all the quiz
                     quizzes: [],
 
+                    // represents the current quiz
                     currentQuiz: null,
                 },
+                // when this vue instance is created, load the data
                 created() {
                     this.loadData()
                 },
                 methods: {
+                    // When user submit name, change to category selection
                     onNameSubmit() {
                         this.currentView = 'categorySelection'
                     },
+                    // When user selects a category, start selected quiz category
                     onSelectCategory(quizIndex) {
+                        // set the current quiz
                         this.currentQuiz = this.quizzes[quizIndex]
+
+                        // shuffle the choices before we start the quiz
                         for (let mcq of this.currentQuiz.mcqs) {
                             shuffle(mcq.choices)
                         }
 
+                        // finally change the view
                         this.currentView = 'quizView'
                     },
+                    // When user submits the quiz, mark those that are correct
                     submitQuiz() {
                         for (let mcq of this.currentQuiz.mcqs) {
                             let isCorrect = true
@@ -231,10 +243,13 @@
                             mcq.isCorrect = isCorrect
                         }
 
+                        // hide the submit confirmation modal
                         this.isSubmitConfirmationActive = false
+                        // change view
                         this.currentView = 'resultView'
                     },
                     returnToMenu() {
+                        // reset mcqs of currentQuiz (set isCorrect to false for MCQ objects)
                         for (let mcq of this.currentQuiz.mcqs) {
                             mcq.resetMcq()
                         }
@@ -258,6 +273,7 @@
                     },
                 },
                 computed: {
+                    // calculates the number of correct answers for the current quiz
                     currentQuizTotalCorrect() {
                         return this.currentQuiz.mcqs.reduce((acc, current) => {
                             if (current.isCorrect) acc++

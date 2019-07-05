@@ -1,6 +1,8 @@
 const { rl, prompt } = require('./utils/input')
 const quizRepository = require('./data/databaseService')
 
+// https://en.wikipedia.org/wiki/Immediately_invoked_function_expression
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 ;(async function() {
     let name = ''
 
@@ -21,6 +23,7 @@ const quizRepository = require('./data/databaseService')
             `Hi ${name}, please choose the quiz category you would like to attempt:`
         )
 
+        // wait for the `getAllCategoriesIds` promise to finish then move on to use the ids
         let categoryIds = await quizRepository.getAllCategoriesIds()
         for (let i = 0; i < categoryIds.length; i++) {
             let categoryId = categoryIds[i].id
