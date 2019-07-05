@@ -1,0 +1,14 @@
+{
+    "name": "cli",
+    "version": "1.0.0",
+    "main": "app.js",
+    "author": "stein121",
+    "license": "MIT",
+    "private": true,
+    "dependencies": {
+        "sqlite": "^3.0.3"
+    },
+    "scripts": {
+        "seed": "cd ./data; node ./seedDb.js"
+    }
+}
