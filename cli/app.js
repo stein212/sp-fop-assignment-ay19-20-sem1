@@ -1,6 +1,6 @@
 const fs = require('fs')
 const Quiz = require('./models/quiz')
-const Mcq = require('./models/mcq')
+const MCQ = require('./models/mcq')
 const { rl, prompt } = require('./utils/input')
 
 let mcqsJson = JSON.parse(fs.readFileSync('data/mcqs.json'))
@@ -10,7 +10,7 @@ let quizzes = []
 for (let categoryJson of mcqsJson) {
     let mcqs = []
     for (let mcqJson of categoryJson.mcqs) {
-        let mcq = new Mcq(mcqJson.question, mcqJson.choices)
+        let mcq = new MCQ(mcqJson.question, mcqJson.choices)
         mcqs.push(mcq)
     }
 

@@ -1,6 +1,3 @@
-const fs = require('fs')
-const Quiz = require('./models/quiz')
-const Mcq = require('./models/mcq')
 const { rl, prompt } = require('./utils/input')
 const quizRepository = require('./data/databaseService')
 
