@@ -1,0 +1,271 @@
+<html>
+    <head>
+        <title>Quiz Application</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
+        />
+        <link rel="stylesheet" href="./css/site.css" />
+    </head>
+    <body>
+        <div id="app" v-cloak>
+            <section class="section">
+                <div class="container">
+                    <div class="column is-6 is-offset-3 has-text-centered">
+                        <!-- Prompt user for name -->
+                        <template v-if="currentView === 'namePrompt'">
+                            <form @submit.prevent="onNameSubmit">
+                                <p class="title">Welcome to Quiz Application</p>
+
+                                <div class="field">
+                                    <label class="label">Enter your name</label>
+                                    <div class="control">
+                                        <input
+                                            class="input has-text-centered"
+                                            type="text"
+                                            placeholder="Elon Musk"
+                                            v-model="name"
+                                        />
+                                    </div>
+                                </div>
+
+                                <button
+                                    class="button is-fullwidth"
+                                    :disabled="name === ''"
+                                >
+                                    Start
+                                </button>
+                            </form>
+                        </template>
+
+                        <!-- Prompt user for category of quiz -->
+                        <template v-if="currentView === 'categorySelection'">
+                            <p class="title">
+                                Hi {{ name }}, please select a category
+                            </p>
+                            <div
+                                v-for="(quiz, index) in quizzes"
+                                class="box is-clickable"
+                                @click="onSelectCategory(index)"
+                            >
+                                {{ quiz.category }}
+                            </div>
+                        </template>
+
+                        <!-- Show mcqs of selected quiz -->
+                        <template v-if="currentView === 'quizView'">
+                            <div
+                                v-for="(mcq, index) in currentQuiz.mcqs"
+                                class="box"
+                            >
+                                <p class="subtitle is-6">
+                                    Question {{ index + 1 }}
+                                </p>
+                                <p class="title is-5">{{ mcq.question }}</p>
+                                <br />
+
+                                <div
+                                    class="field"
+                                    v-for="choice in mcq.choices"
+                                >
+                                    <div
+                                        class="button is-clickable is-fullwidth"
+                                        @click="choice.isSelected = !choice.isSelected"
+                                        :class="{'is-success': choice.isSelected}"
+                                    >
+                                        {{ choice.text }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button
+                                class="button is-fullwidth is-success"
+                                @click="isSubmitConfirmationActive = true"
+                            >
+                                Submit
+                            </button>
+                        </template>
+
+                        <!-- Show results of quiz -->
+                        <template v-if="currentView === 'resultView'">
+                            <p class="title">Results</p>
+
+                            <p class="is-size-1">
+                                {{ currentQuizTotalCorrect }} /
+                                {{ this.currentQuiz.mcqs.length }}
+                            </p>
+
+                            <div class="content">
+                                <div
+                                    v-for="(mcq, index) in currentQuiz.mcqs"
+                                    class="has-text-left"
+                                >
+                                    <p
+                                        class="has-text-weight-bold"
+                                        :class="{'has-text-danger': !mcq.isCorrect, 'has-text-success': mcq.isCorrect}"
+                                    >
+                                        Question {{ index + 1 }}
+                                    </p>
+                                    <p class="is-size-4">{{ mcq.question }}</p>
+                                    <p>Your Answer:</p>
+                                    <ul>
+                                        <template v-for="choice in mcq.choices">
+                                            <li v-if="choice.isSelected">
+                                                {{ choice.text }}
+                                            </li>
+                                        </template>
+                                    </ul>
+                                    <p>Correct Answer:</p>
+                                    <ul>
+                                        <template v-for="choice in mcq.choices">
+                                            <li v-if="choice.isCorrect">
+                                                {{ choice.text }}
+                                            </li>
+                                        </template>
+                                    </ul>
+                                    <br />
+                                </div>
+                            </div>
+                            <br />
+
+                            <button
+                                class="button is-success is-fullwidth"
+                                @click="returnToMenu"
+                            >
+                                Return to Menu
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Confirm answers before submitting -->
+            <div v-if="isSubmitConfirmationActive" class="modal is-active">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="box content">
+                        <p class="title">
+                            Please confirm your answers
+                        </p>
+
+                        <div v-for="(mcq, index) in currentQuiz.mcqs">
+                            <p class="has-text-bold">
+                                Question {{ index + 1 }}
+                            </p>
+                            <ul>
+                                <template v-for="choice in mcq.choices">
+                                    <li v-if="choice.isSelected">
+                                        {{ choice.text }}
+                                    </li>
+                                </template>
+                            </ul>
+                            <br />
+                        </div>
+                        <br />
+                        <div>
+                            <button
+                                class="button is-danger"
+                                @click="isSubmitConfirmationActive = false"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                class="button is-success is-pulled-right"
+                                @click="submitQuiz"
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    class="modal-close is-large"
+                    @click="isSubmitConfirmationActive = false"
+                ></button>
+            </div>
+        </div>
+
+        <script src="./js/data.js"></script>
+        <script src="./js/mcq.js"></script>
+        <script src="./js/quiz.js"></script>
+        <script src="./utils/shuffle.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            const app = new Vue({
+                el: '#app',
+                data: {
+                    currentView: 'namePrompt',
+                    isSubmitConfirmationActive: false,
+
+                    name: '',
+                    quizzes: [],
+
+                    currentQuiz: null,
+                },
+                created() {
+                    this.loadData()
+                },
+                methods: {
+                    onNameSubmit() {
+                        this.currentView = 'categorySelection'
+                    },
+                    onSelectCategory(quizIndex) {
+                        this.currentQuiz = this.quizzes[quizIndex]
+                        for (let mcq of this.currentQuiz.mcqs) {
+                            shuffle(mcq.choices)
+                        }
+
+                        this.currentView = 'quizView'
+                    },
+                    submitQuiz() {
+                        for (let mcq of this.currentQuiz.mcqs) {
+                            let isCorrect = true
+                            for (let choice of mcq.choices) {
+                                if (!choice.isCorrect && choice.isSelected) {
+                                    isCorrect = false
+                                    break
+                                }
+                            }
+
+                            mcq.isCorrect = isCorrect
+                        }
+
+                        this.isSubmitConfirmationActive = false
+                        this.currentView = 'resultView'
+                    },
+                    returnToMenu() {
+                        for (let mcq of this.currentQuiz.mcqs) {
+                            mcq.resetMcq()
+                        }
+                        this.currentView = 'categorySelection'
+                    },
+                    loadData() {
+                        for (let categoryJson of jsonData) {
+                            let mcqs = []
+                            for (let mcqJson of categoryJson.mcqs) {
+                                let mcq = new MCQ(
+                                    mcqJson.question,
+                                    mcqJson.choices
+                                )
+                                mcqs.push(mcq)
+                            }
+
+                            let quiz = new Quiz(categoryJson.category, mcqs)
+
+                            this.quizzes.push(quiz)
+                        }
+                    },
+                },
+                computed: {
+                    currentQuizTotalCorrect() {
+                        return this.currentQuiz.mcqs.reduce((acc, current) => {
+                            if (current.isCorrect) acc++
+                            return acc
+                        }, 0)
+                    },
+                },
+            })
+        </script>
+    </body>
+</html>
