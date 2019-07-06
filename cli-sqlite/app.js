@@ -35,6 +35,7 @@ const quizRepository = require('./data/databaseService')
         rl.question(prompt, async function onSelectedCategoryInput(input) {
             let option = parseInt(input)
             if (isNaN(option) || option < 0 || option > categoryIds.length) {
+                console.log('Error. Invalid option.')
                 promptSelectCategory()
                 return
             }
