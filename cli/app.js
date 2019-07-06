@@ -52,6 +52,7 @@ function promptSelectCategory() {
         let option = parseInt(input)
         // Check if the integer is actually an integer and within the allowed range
         if (isNaN(option) || option < 0 || option > quizzes.length) {
+            console.log('Error. Invalid option.')
             promptSelectCategory()
             return
         }
