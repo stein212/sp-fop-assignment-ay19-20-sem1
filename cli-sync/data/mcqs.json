@@ -1,0 +1,392 @@
+[
+    {
+        "category": "IT",
+        "mcqs": [
+            {
+                "question": "IT Question A",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "IT Question B",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "IT Question C",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "IT Question D",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "IT Question E",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4 t",
+                        "isCorrect": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "category": "Biolog",
+        "mcqs": [
+            {
+                "question": "Biolog Question A",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Biolog Question B",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Biolog Question C",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Biolog Question D",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "Biolog Question E",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4 t",
+                        "isCorrect": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "category": "History",
+        "mcqs": [
+            {
+                "question": "History Question A",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "History Question B",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "History Question C",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "History Question D",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3 t",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "question": "History Question E",
+                "choices": [
+                    {
+                        "id": 0,
+                        "text": "Choice 1",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 1,
+                        "text": "Choice 2",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 2,
+                        "text": "Choice 3",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": 3,
+                        "text": "Choice 4 t",
+                        "isCorrect": true
+                    }
+                ]
+            }
+        ]
+    }
+]
