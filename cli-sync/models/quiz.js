@@ -191,19 +191,19 @@ module.exports = class Quiz {
     // Calculate the results and show it to user
     submitQuiz() {
         let totalCorrect = 0
-
-        for (let mcq of this.mcqs) {
-            let isCorrect = true
-            for (let choice of mcq.choices) {
-                if (!choice.isCorrect && choice.isSelected) {
+        let hasSelection = false
+        for (let choice of mcq.choices) {
+            if (choice.isSelected) {
+                hasSelection = true
+                if (!choice.isCorrect) {
                     isCorrect = false
                     break
                 }
             }
+        }
 
-            if (isCorrect) {
-                totalCorrect++
-            }
+        if (isCorrect && hasSelection) {
+            totalCorrect++
         }
 
         console.log()

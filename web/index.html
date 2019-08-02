@@ -233,14 +233,18 @@
                     submitQuiz() {
                         for (let mcq of this.currentQuiz.mcqs) {
                             let isCorrect = true
+                            let hasSelection = false
                             for (let choice of mcq.choices) {
-                                if (!choice.isCorrect && choice.isSelected) {
-                                    isCorrect = false
-                                    break
+                                if (choice.isSelected) {
+                                    hasSelection = true
+                                    if (!choice.isCorrect) {
+                                        isCorrect = false
+                                        break
+                                    }
                                 }
                             }
 
-                            mcq.isCorrect = isCorrect
+                            mcq.isCorrect = isCorrect && hasSelection
                         }
 
                         // hide the submit confirmation modal

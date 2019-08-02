@@ -187,14 +187,18 @@ module.exports = class Quiz {
 
         for (let mcq of this.mcqs) {
             let isCorrect = true
+            let hasSelection = false
             for (let choice of mcq.choices) {
-                if (!choice.isCorrect && choice.isSelected) {
-                    isCorrect = false
-                    break
+                if (choice.isSelected) {
+                    hasSelection = true
+                    if (!choice.isCorrect) {
+                        isCorrect = false
+                        break
+                    }
                 }
             }
 
-            if (isCorrect) {
+            if (isCorrect && hasSelection) {
                 totalCorrect++
             }
         }
