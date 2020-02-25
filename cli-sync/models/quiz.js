@@ -40,23 +40,17 @@ module.exports = class Quiz {
         // If first question, only allow them to move forward
         if (this.questionIndex <= 0) {
             console.log(
-                `<enter 1 to ${
-                    currentMcq.choices.length
-                } for answer, N for next question>`
+                `<enter 1 to ${currentMcq.choices.length} for answer, N for next question>`
             )
             // If last question, only allow them to move backward
         } else if (this.questionIndex >= this.mcqs.length) {
             console.log(
-                `<enter 1 to ${
-                    currentMcq.choices.length
-                } for answer, P for previous question>`
+                `<enter 1 to ${currentMcq.choices.length} for answer, P for previous question>`
             )
             // Else it is in the middle, allow them to move forward and back
         } else {
             console.log(
-                `<enter 1 to ${
-                    currentMcq.choices.length
-                } for answer, P for previous question, N for next question>`
+                `<enter 1 to ${currentMcq.choices.length} for answer, P for previous question, N for next question>`
             )
         }
 
@@ -103,10 +97,7 @@ module.exports = class Quiz {
         let currentMcq = this.mcqs[this.questionIndex]
 
         // check if input is valid
-        if (
-            isNaN(option) ||
-            (option < 1 || option > currentMcq.choices.length)
-        ) {
+        if (isNaN(option) || option < 1 || option > currentMcq.choices.length) {
             console.log('Error. Invalid option.')
             input = rl.question(prompt)
             this.handleQuestionInput(input)
@@ -159,9 +150,7 @@ module.exports = class Quiz {
 
         console.log()
         console.log(
-            `Enter 0 to submit your quiz or [1 to ${
-                this.mcqs.length
-            }] to change you answer`
+            `Enter 0 to submit your quiz or [1 to ${this.mcqs.length}] to change you answer`
         )
 
         let input = rl.question(prompt)
@@ -192,25 +181,26 @@ module.exports = class Quiz {
     submitQuiz() {
         let totalCorrect = 0
         let hasSelection = false
-        for (let choice of mcq.choices) {
-            if (choice.isSelected) {
-                hasSelection = true
-                if (!choice.isCorrect) {
-                    isCorrect = false
-                    break
+        for (let mcq of this.mcqs) {
+            let isCorrect = true
+            for (let choice of mcq.choices) {
+                if (choice.isSelected) {
+                    hasSelection = true
+                    if (!choice.isCorrect) {
+                        isCorrect = false
+                        break
+                    }
                 }
             }
-        }
 
-        if (isCorrect && hasSelection) {
-            totalCorrect++
+            if (isCorrect && hasSelection) {
+                totalCorrect++
+            }
         }
 
         console.log()
         console.log(
-            `Your score for ${this.category} quiz is: ${totalCorrect}/${
-                this.mcqs.length
-            }`
+            `Your score for ${this.category} quiz is: ${totalCorrect}/${this.mcqs.length}`
         )
 
         // Call promise's resolve to end the quiz
